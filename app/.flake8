@@ -1,0 +1,7 @@
+#default flake8 configuration files
+[flake8]
+exclude = 
+    migrations,
+    __pychache__,
+    manage.py,
+    settings.py 
