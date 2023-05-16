@@ -1,6 +1,7 @@
 #version of the docker compose syntax
 version: "3.9"
 #docker compose file services. app name of the services. build is the context of the docker file. ports is the port of the app. volumes is the volume of the app. command is the command to run the app
+
 services:
   app:
     build: 
@@ -13,3 +14,23 @@ services:
       - ./app:/app
     command:
       sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+
+
+volumes:
+  dev-db-data:
