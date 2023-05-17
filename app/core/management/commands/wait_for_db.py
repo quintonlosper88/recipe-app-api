@@ -19,7 +19,8 @@ class Command(BaseCommand):
         db_up = False
         while db_up is False:
             try:
-                #check if the database is ready. if not throw an exception. if true set db_up equal to True
+                """check if the database is ready. if not throw an exception.
+                if true set db_up equal to True"""
                 self.check(databases=['default'])
                 db_up = True
             except (Psycopg2OpError, OperationalError):
@@ -27,5 +28,3 @@ class Command(BaseCommand):
                 time.sleep(1)
 
         self.stdout.write(self.style.SUCCESS('Database avaialble!'))
-
- 
